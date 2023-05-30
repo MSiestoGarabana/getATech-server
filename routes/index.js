@@ -1,8 +1,5 @@
-module.exports = app => {
+const router = require("express").Router();
 
-    const indexRoutes = require("./index.routes")
-    app.use("/api", indexRoutes)
-      
-}
+router.use("/offers", require("./offers.routes"))
 
-
+module.exports = router
