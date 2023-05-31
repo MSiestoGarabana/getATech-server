@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { isAuthenticated } = require("../middlewares/verifyToken.middleware");
 
 
 router.post('/signup', (req, res, next) => {
@@ -38,7 +39,7 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
 
-  console.log('secretoo', process.env.TOKEN_SECRET)
+  console.log('AAAAAAAUTH.ROUTES.JS secretoo', process.env.TOKEN_SECRET)
   
   const { email, password } = req.body;
   
@@ -76,6 +77,12 @@ router.post('/login', (req, res, next) => {
   
     })
     .catch(err => next(err));
+})
+
+router.get('/verify', isAuthenticated, (req, res, next) => {
+  console.log('AAAAAAUTH.ROUTES.JS EL USUARIO TIENE UN TOKEN CORRECTO Y SUS DATOS SON', req.payload)
+
+  res.status(200).json(req.payload)
 })
 
 module.exports = router
