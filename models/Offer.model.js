@@ -9,7 +9,8 @@ const offerSchema = new Schema(
     },
     logo: {
         type: String,
-        required: false
+        required: false,
+        default: 'https://i.stack.imgur.com/l60Hf.png'
     },
     position:  {
         type: String,

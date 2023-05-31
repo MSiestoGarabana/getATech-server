@@ -1,11 +1,19 @@
 const router = require("express").Router();
-
-//const Coaster = require('./../models/Coaster.model')
 const Offer = require('./../models/Offer.model')
+
 router.get("/getAllOffers", (req, res, next) => {
 
   Offer
     .find()
+    .select({
+      image:1,
+      logo:1,
+      position:1,
+      salary:1,
+      location:1,
+      remoteVolume:1,
+      description:1
+    })
     .then(response =>  res.json(response))
     .catch(err => next(err))
 })
