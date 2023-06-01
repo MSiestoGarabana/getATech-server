@@ -19,12 +19,12 @@ router.get("/getAllOffers", (req, res, next) => {
 })
 
 
-router.get("/getOneOffer/:offer_id", (req, res, next) => {
+router.get("/:_id", (req, res, next) => {
 
-  const { offer_id } = req.params
+  const { _id } = req.params
 
   Offer
-    .findById(offer_id)
+    .findById(_id)
     .then(response => res.json(response))
     .catch(err => next(err))
 })
@@ -38,6 +38,25 @@ router.post("/createOffer", (req, res, next) => {
     .create({position, salary, location, remoteVolume, description})
     .then(response => res.json(response))
     .catch(err => next(err))
+})
+
+router.post("/:_id/editOffer", (req, res, next) => {
+  const _id = req.params
+  const {image, position, salary, location, remoteVolume, description,applicants} = req.body
+
+  Offer
+  .findByIdAndUpdate(_id, {image, position, salary, location, remoteVolume, description, applicants})
+  .then((response) => {res.json(response)})
+  .catch(err => next(err))
+})
+
+router.post("/:_id/deleteOffer", (req, res, next) => {
+  const _id = req.params
+
+  Offer
+  .findByIdAndDelete(_id)
+  .then(response => res.json(response))
+  .catch(err => next(err))
 })
 
 module.exports = router
