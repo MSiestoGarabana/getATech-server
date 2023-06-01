@@ -7,7 +7,7 @@ const { isAuthenticated } = require("../middlewares/verifyToken.middleware");
 
 router.post('/signup', (req, res, next) => {
 
-    const { username, email, password } = req.body
+    const { username, email, password, role } = req.body
   
     User
       .findOne({ email })
@@ -17,7 +17,7 @@ router.post('/signup', (req, res, next) => {
           res.status(400).json({ message: "User already exists." })
           return
         }  
-        return User.create({ email, password, username })
+        return User.create({ email, password, username, role })
 
       })
 
@@ -39,9 +39,9 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
 
-  console.log('AAAAAAAUTH.ROUTES.JS secretoo', process.env.TOKEN_SECRET)
   
   const { email, password } = req.body;
+  console.log("ME LOGUEO DESDE EL SIGNUP FORM-------------auth.routes, REQ.BODY",req.body)
   
   if (email === '' || password === '') {
     res.status(400).json({ message: "Provide email and password." });
@@ -56,6 +56,7 @@ router.post('/login', (req, res, next) => {
         res.status(401).json({ message: "User not found." })
         return;
       }
+      console.log("aquí llego")
   
       if (bcrypt.compareSync(password, foundUser.password)) {
 
