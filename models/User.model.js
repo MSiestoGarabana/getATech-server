@@ -26,7 +26,7 @@ const userSchema = new Schema(
       enum: ['EMPLOYEE', 'EMPLOYER', 'ADMIN'],
       default: 'EMPLOYEE'
     },
-    avatar: {
+    image: {
       type: String,
       required: false,
       default: 'https://i.stack.imgur.com/l60Hf.png'
