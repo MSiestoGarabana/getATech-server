@@ -5,7 +5,6 @@ const User = require('./../models/User.model')
 const getAllUsers = ("/getAllUsers" , (req, res,next) => {
     User
     .find()
-    // TODO: SELECCIONAR CAMPOS
     .then(response => res.json(response))
     .catch(err => next(err))
 })

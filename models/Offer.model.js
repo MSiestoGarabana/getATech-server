@@ -35,7 +35,7 @@ const offerSchema = new Schema(
     applicants: [{
       type: Schema.Types.ObjectId,
       ref: 'User'
-    }]
+    }],
   },
   {
     timestamps: true

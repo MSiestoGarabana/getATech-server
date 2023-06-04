@@ -31,7 +31,7 @@ const createOffer = ("/createOffer", (req, res, next) => {
 
 const editOffer = ("/:_id/editOffer", (req, res, next) => {
     const _id = req.params
-  const {image, position, salary, location, remoteVolume, description,applicants} = req.body
+  const {image, position, salary, location, remoteVolume, description, applicants} = req.body
 
   Offer
   .findByIdAndUpdate(_id, {image, position, salary, location, remoteVolume, description, applicants})
