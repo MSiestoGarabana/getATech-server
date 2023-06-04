@@ -13,8 +13,6 @@ function getTokenFromHeaders(req) {
 
         const token = req.headers.authorization.split(" ")[1]
 
-        console.log('VEEEEEEEERIFYTOKEN.MIDDLEWARE.JS EL TOKEN ES --->', token)
-
         return token
     }
 

@@ -76,6 +76,7 @@ const login = ('/login', (req, res, next) => {
 })
 
 const verify = ('/verify', verifyToken, (req, res, next) => {
+  console.log("REQ.PAYLOAAAD DESDE VERIFY" ,req.payload)
     res.status(200).json(req.payload)
 })
 
