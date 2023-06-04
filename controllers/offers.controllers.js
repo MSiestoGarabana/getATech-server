@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Offer = require('./../models/Offer.model')
+const { verifyToken } = require('../middlewares/verifyToken.middleware')
 
 
 
@@ -20,11 +21,12 @@ const findOfferById = ("/:_id", (req, res, next) => {
       .catch(err => next(err))
 })
 
-const createOffer = ("/createOffer", (req, res, next) => {
-    const {position, salary, location, remoteVolume, description} = req.body
+const createOffer = ("/createOffer", verifyToken, (req, res, next) => {
+    const {image, position, salary, location, remoteVolume, description, applicants} = req.body
+    const {_id: owner} = req.payload
 
     Offer
-      .create({position, salary, location, remoteVolume, description})
+      .create({image, position, salary, location, remoteVolume, description, applicants, owner})
       .then(response => res.json(response))
       .catch(err => next(err)) 
 })

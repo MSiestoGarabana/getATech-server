@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { isAuthenticated } = require('../middlewares/verifyToken.middleware')
+const { verifyToken } = require('../middlewares/verifyToken.middleware')
 const User = require('./../models/User.model')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
@@ -75,7 +75,7 @@ const login = ('/login', (req, res, next) => {
       .catch(err => next(err));
 })
 
-const verify = ('/verify', isAuthenticated, (req, res, next) => {
+const verify = ('/verify', verifyToken, (req, res, next) => {
     res.status(200).json(req.payload)
 })
 
