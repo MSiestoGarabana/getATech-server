@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { verifyToken } = require('../middlewares/verifyToken.middleware')
 const User = require('./../models/User.model')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken');
+
 
 const signUp = ('/signup', (req, res, next) => {
 
@@ -53,22 +53,17 @@ const login = ('/login', (req, res, next) => {
           return;
         }
     
-        if (bcrypt.compareSync(password, foundUser.password)) {
+        if (foundUser.validatePassword(password)) {
   
-          const { _id, username } = foundUser;
-          
-          const payload = { _id, username}
-  
-          const authToken = jwt.sign(
-            payload,
-            process.env.TOKEN_SECRET,
-            { algorithm: 'HS256', expiresIn: "6h" }
-          )
+          const authToken = foundUser.signToken()
   
           res.json({ authToken: authToken });
+
         }
         else {
+
           res.status(401).json({ message: "Unable to authenticate the user" });
+
         }
     
       })
@@ -76,7 +71,6 @@ const login = ('/login', (req, res, next) => {
 })
 
 const verify = ('/verify', verifyToken, (req, res, next) => {
-  console.log("REQ.PAYLOAAAD DESDE VERIFY" ,req.payload)
     res.status(200).json(req.payload)
 })
 
