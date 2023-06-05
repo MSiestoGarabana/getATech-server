@@ -7,7 +7,6 @@ const { verifyToken } = require('../middlewares/verifyToken.middleware')
 const getAllOffers = ("/getAllOffers", (req, res, next) => {
     Offer
     .find()
-    .select({applicants: 0 })
     .then(response =>  res.json(response))
     .catch(err => next(err))
 })
@@ -33,12 +32,20 @@ const createOffer = ("/createOffer", verifyToken, (req, res, next) => {
 
 const editOffer = ("/:_id/editOffer", (req, res, next) => {
     const _id = req.params
-  const {image, position, salary, location, remoteVolume, description, applicants} = req.body
+    const {user_id} = req.body
+    const {image, position, salary, location, remoteVolume, description, applicants} = req.body
 
-  Offer
-  .findByIdAndUpdate(_id, {image, position, salary, location, remoteVolume, description, applicants})
-  .then((response) => res.json(response))
-  .catch(err => next(err))
+    if (user_id){
+        Offer.findByIdAndUpdate(_id, { $addToSet: {applicants: user_id}}, {new : true})
+        .then((response) => res.json(response))
+        .catch(err =>next(err))
+    } else {
+        Offer
+        .findByIdAndUpdate(_id, {image, position, salary, location, remoteVolume, description, applicants})
+        .then((response) => res.json(response))
+        .catch(err => next(err))
+    }
+
 })
 
 const deleteOffer = ("/:_id/deleteOffer", (req, res, next) => {
