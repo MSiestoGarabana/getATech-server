@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const Offer = require('./../models/Offer.model')
 const {getAllOffers, findOfferById, createOffer, newApplicant, newPreSelected, newDiscarded, newMatch, editOffer, deleteOffer} = require('../controllers/offers.controllers')
 const { verifyToken } = require('../middlewares/verifyToken.middleware')
 
