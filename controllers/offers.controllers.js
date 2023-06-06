@@ -21,11 +21,11 @@ const findOfferById = ("/:_id", (req, res, next) => {
 })
 
 const createOffer = ("/createOffer", verifyToken, (req, res, next) => {
-    const {image, position, salary, location, remoteVolume, description, applicants} = req.body
+    const {image, position, salary, location, remoteVolume, description, applicants, preselecteds, discardeds} = req.body
     const {_id: owner} = req.payload
 
     Offer
-        .create({image, position, salary, location, remoteVolume, description, applicants, owner})
+        .create({image, position, salary, location, remoteVolume, description, applicants, owner, preselecteds, discardeds})
         .then(response => res.json(response))
         .catch(err => next(err)) 
 })
@@ -37,6 +37,42 @@ const newApplicant = ("/:_id/newApplicant", (req, res, next) => {
 
     Offer
         .findByIdAndUpdate(_id, { $push: {applicants: user_id}}, {new : true})
+        .then((response) => res.json(response))
+        .catch(err =>next(err))
+
+})
+
+const newPreSelected = ("/:_id/newPreselected", (req, res, next) => {
+
+    const { _id  }= req.params
+    const { user_id } = req.body
+
+    Offer
+        .findByIdAndUpdate(_id, { $push: {preselecteds: user_id}}, {new : true})
+        .then((response) => res.json(response))
+        .catch(err =>next(err))
+
+})
+
+const newDiscarded = ("/:_id/newDiscarded", (req, res, next) => {
+
+    const { _id  }= req.params
+    const { user_id } = req.body
+
+    Offer
+        .findByIdAndUpdate(_id, { $push: {discardeds: user_id}}, {new : true})
+        .then((response) => res.json(response))
+        .catch(err =>next(err))
+
+})
+
+const newMatch = ("/:_id/newMatch", (req, res, next) => {
+
+    const { _id  }= req.params
+    const { user_id } = req.body
+
+    Offer
+        .findByIdAndUpdate(_id, { $push: {matches: user_id}}, {new : true})
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
@@ -70,6 +106,9 @@ module.exports = {
     findOfferById,
     createOffer,
     newApplicant,
+    newPreSelected,
+    newDiscarded,
+    newMatch,
     editOffer,
     deleteOffer
 }

@@ -36,6 +36,18 @@ const offerSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User'
     }],
+    preselecteds: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    matches: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    discarded: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }],
     owner: {
       type: Schema.Types.ObjectId,
       ref:'User'
