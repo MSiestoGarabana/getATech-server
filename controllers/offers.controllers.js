@@ -57,9 +57,7 @@ const newPreSelected = ("/:_id/newPreselected", (req, res, next) => {
 const newDiscarded = ("/:_id/newDiscarded", (req, res, next) => {
 
     const { _id  }= req.params
-    console.log("OFFER ID IN BACK",_id)
     const { user_id } = req.body
-    console.log("DISCARDED ID IN BACK",user_id)
 
     Offer
         .findByIdAndUpdate(_id, { $addToSet: {discarded: user_id}}, {new : true})
@@ -82,9 +80,6 @@ const newMatch = ("/:_id/newMatch", (req, res, next) => {
 
 const editOffer = ("/:_id/editOffer", (req, res, next) => {
     const {_id}  = req.params
-    console.log("hey", _id)
-    console.log("REQ BODYYYYYYYYYYY",req.body)
-    console.log("NEWWWWW POSITION", req.body.position)
     const {image, position, salary, location, remoteVolume, description, applicants} = req.body
     
     Offer
