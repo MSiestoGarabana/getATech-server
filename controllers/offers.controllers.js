@@ -36,7 +36,7 @@ const newApplicant = ("/:_id/newApplicant", (req, res, next) => {
     const { user_id } = req.body
 
     Offer
-        .findByIdAndUpdate(_id, { $push: {applicants: user_id}}, {new : true})
+        .findByIdAndUpdate(_id, { $addToSet: {applicants: user_id}}, {new : true})
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
@@ -48,7 +48,7 @@ const newPreSelected = ("/:_id/newPreselected", (req, res, next) => {
     const { user_id } = req.body
 
     Offer
-        .findByIdAndUpdate(_id, { $push: {preselecteds: user_id}}, {new : true})
+        .findByIdAndUpdate(_id, { $addToSet: {preselecteds: user_id}}, {new : true})
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
@@ -57,10 +57,12 @@ const newPreSelected = ("/:_id/newPreselected", (req, res, next) => {
 const newDiscarded = ("/:_id/newDiscarded", (req, res, next) => {
 
     const { _id  }= req.params
+    console.log("OFFER ID IN BACK",_id)
     const { user_id } = req.body
+    console.log("DISCARDED ID IN BACK",user_id)
 
     Offer
-        .findByIdAndUpdate(_id, { $push: {discardeds: user_id}}, {new : true})
+        .findByIdAndUpdate(_id, { $addToSet: {discarded: user_id}}, {new : true})
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
@@ -72,7 +74,7 @@ const newMatch = ("/:_id/newMatch", (req, res, next) => {
     const { user_id } = req.body
 
     Offer
-        .findByIdAndUpdate(_id, { $push: {matches: user_id}}, {new : true})
+        .findByIdAndUpdate(_id, { $addToSet: {matches: user_id}}, {new : true})
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
