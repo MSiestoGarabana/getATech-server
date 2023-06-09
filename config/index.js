@@ -9,9 +9,10 @@ module.exports = (app) => {
 
   app.use(
     cors({
-      origin: [FRONTEND_URL]
+      origin: process.env.FRONTEND_URL,
+      credentials: true
     })
-  ); 
+  );
 
   app.use(logger("dev"));
   app.use(express.json());
