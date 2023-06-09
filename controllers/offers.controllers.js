@@ -4,7 +4,7 @@ const { verifyToken } = require('../middlewares/verifyToken.middleware')
 
 
 
-const getAllOffers = ("/getAllOffers", (req, res, next) => {
+const getAllOffers =  (req, res, next) => {
 
     Offer
         .find()
@@ -12,18 +12,18 @@ const getAllOffers = ("/getAllOffers", (req, res, next) => {
         // .select({name: 1})
         .then(response =>  res.json(response))
         .catch(err => next(err))
-})
+}
 
-const findOfferById = ("/:_id", (req, res, next) => {
+const findOfferById =  (req, res, next) => {
     const { _id } = req.params
 
     Offer
         .findById(_id)
         .then(response => res.json(response))
         .catch(err => next(err))
-})
+}
 
-const createOffer = ("/createOffer", verifyToken, (req, res, next) => {
+const createOffer =  (req, res, next) => {
     const {image, position, salary, location, remoteVolume, description, applicants, preselecteds, discardeds} = req.body
     const {_id: owner} = req.payload
 
@@ -31,9 +31,9 @@ const createOffer = ("/createOffer", verifyToken, (req, res, next) => {
         .create({image, position, salary, location, remoteVolume, description, applicants, owner, preselecteds, discardeds})
         .then(response => res.json(response))
         .catch(err => next(err)) 
-})
+}
 
-const newApplicant = ("/:_id/newApplicant", (req, res, next) => {
+const newApplicant =  (req, res, next) => {
 
     const { _id  }= req.params
     const { user_id } = req.body
@@ -43,9 +43,9 @@ const newApplicant = ("/:_id/newApplicant", (req, res, next) => {
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
-})
+}
 
-const newPreSelected = ("/:_id/newPreselected", (req, res, next) => {
+const newPreSelected =  (req, res, next) => {
 
     const { _id  }= req.params
     const { user_id } = req.body
@@ -55,9 +55,9 @@ const newPreSelected = ("/:_id/newPreselected", (req, res, next) => {
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
-})
+}
 
-const newDiscarded = ("/:_id/newDiscarded", (req, res, next) => {
+const newDiscarded =  (req, res, next) => {
 
     const { _id  }= req.params
     const { user_id } = req.body
@@ -67,9 +67,9 @@ const newDiscarded = ("/:_id/newDiscarded", (req, res, next) => {
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
-})
+}
 
-const newMatch = ("/:_id/newMatch", (req, res, next) => {
+const newMatch =  (req, res, next) => {
 
     const { _id  }= req.params
     const { user_id } = req.body
@@ -79,9 +79,9 @@ const newMatch = ("/:_id/newMatch", (req, res, next) => {
         .then((response) => res.json(response))
         .catch(err =>next(err))
 
-})
+}
 
-const editOffer = ("/:_id/editOffer", (req, res, next) => {
+const editOffer =  (req, res, next) => {
     const {_id}  = req.params
     const {image, position, salary, location, remoteVolume, description, applicants} = req.body
     
@@ -90,16 +90,16 @@ const editOffer = ("/:_id/editOffer", (req, res, next) => {
         .then((response) => res.json(response))
         .catch(err => next(err))
     
-})
+}
 
-const deleteOffer = ("/:_id/deleteOffer", (req, res, next) => {
+const deleteOffer =  (req, res, next) => {
     const {_id} = req.params
 
     Offer
         .findByIdAndDelete(_id)
         .then(response => res.json(response))
         .catch(err => next(err))
-})
+}
 
 module.exports = {
     getAllOffers,

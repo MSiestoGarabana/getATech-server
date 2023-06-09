@@ -4,7 +4,7 @@ const User = require('./../models/User.model')
 const bcrypt = require('bcryptjs')
 
 
-const signUp = ('/signup', (req, res, next) => {
+const signUp =  (req, res, next) => {
 
     const { username, email, password, role, image } = req.body
   
@@ -33,9 +33,9 @@ const signUp = ('/signup', (req, res, next) => {
         next(err)
       })
 
-})
+}
 
-const login = ('/login', (req, res, next) => {
+const login =  (req, res, next) => {
 
     const { email, password } = req.body;
   
@@ -68,11 +68,11 @@ const login = ('/login', (req, res, next) => {
     
       })
       .catch(err => next(err));
-})
+}
 
-const verify = ('/verify', verifyToken, (req, res, next) => {
+const verify =  (req, res, next) => {
     res.status(200).json(req.payload)
-})
+}
 
 module.exports = {
     signUp,
