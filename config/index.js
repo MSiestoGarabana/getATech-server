@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
 const FRONTEND_URL = process.env.ORIGIN || "http://localhost:3000";
 
 module.exports = (app) => {
@@ -9,7 +10,7 @@ module.exports = (app) => {
 
   app.use(
     cors({
-      origin: process.env.FRONTEND_URL,
+      origin: process.env.ORIGIN,
       credentials: true
     })
   );
