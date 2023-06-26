@@ -3,7 +3,7 @@ const {getAllOffers, getOffersByOwner, findOfferById, createOffer, newApplicant,
 const { verifyToken } = require('../middlewares/verifyToken.middleware')
 
 router.get("/getAllOffers", getAllOffers)
-router.get("/:session_id/getOffersByOwner", getOffersByOwner )
+router.get("/getOffersByOwner", verifyToken, getOffersByOwner )
 router.get("/:_id", findOfferById)
 router.post("/createOffer", verifyToken, createOffer)
 router.post("/:_id/newApplicant", newApplicant)

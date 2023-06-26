@@ -15,10 +15,10 @@ const getAllOffers =  (req, res, next) => {
 
 const getOffersByOwner = (req, res, next) => {
 
-    const { session_id } = req.params
-
+    const {_id} = req.payload
+    
     Offer
-        .find({owner : session_id})
+        .find({owner : _id})
         .select()
         .then(response => res.json(response))
         .catch(err => next)
