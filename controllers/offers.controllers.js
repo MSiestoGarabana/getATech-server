@@ -5,13 +5,23 @@ const { verifyToken } = require('../middlewares/verifyToken.middleware')
 
 
 const getAllOffers =  (req, res, next) => {
-
     Offer
         .find()
         // TODO: REVisar oportunidades de seleccionar campos
         // .select({name: 1})
         .then(response =>  res.json(response))
         .catch(err => next(err))
+}
+
+const getOffersByOwner = (req, res, next) => {
+
+    const { session_id } = req.params
+
+    Offer
+        .find({owner : session_id})
+        .select()
+        .then(response => res.json(response))
+        .catch(err => next)
 }
 
 const findOfferById =  (req, res, next) => {
@@ -103,6 +113,7 @@ const deleteOffer =  (req, res, next) => {
 
 module.exports = {
     getAllOffers,
+    getOffersByOwner,
     findOfferById,
     createOffer,
     newApplicant,
