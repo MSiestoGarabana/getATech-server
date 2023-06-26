@@ -1,5 +1,18 @@
 const router = require("express").Router();
-const {getAllOffers, getOffersByOwner, getNonAcceptedOffers, findOfferById, createOffer, newApplicant, newPreSelected, newDiscarded, newMatch, editOffer, deleteOffer} = require('../controllers/offers.controllers')
+const { 
+    getAllOffers,
+    getOffersByOwner,
+    getNonAcceptedOffers,
+    findOfferById,
+    createOffer,
+    newApplicant,
+    newPreSelected,
+    newDiscarded,
+    newMatch,
+    editOffer,
+    deleteOffer
+} = require('../controllers/offers.controllers')
+
 const { verifyToken } = require('../middlewares/verifyToken.middleware')
 
 router.get("/getAllOffers", getAllOffers)
