@@ -16,12 +16,21 @@ const getAllOffers =  (req, res, next) => {
 const getOffersByOwner = (req, res, next) => {
 
     const {_id} = req.payload
-    
+
     Offer
         .find({owner : _id})
-        .select()
         .then(response => res.json(response))
-        .catch(err => next)
+        .catch(err => next(err))
+}
+
+const getNonAcceptedOffers = (req, res, next) => {
+
+    const {_id} = req.payload
+
+    Offer
+        .find({ applicants: { $ne: _id} })
+        .then(response => res.json(response))
+        .catch(err => next(err))
 }
 
 const findOfferById =  (req, res, next) => {
@@ -114,6 +123,7 @@ const deleteOffer =  (req, res, next) => {
 module.exports = {
     getAllOffers,
     getOffersByOwner,
+    getNonAcceptedOffers,
     findOfferById,
     createOffer,
     newApplicant,
